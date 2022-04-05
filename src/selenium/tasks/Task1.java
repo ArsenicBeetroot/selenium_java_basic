@@ -3,10 +3,13 @@ package selenium.tasks;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
 
 public class Task1 {
     WebDriver driver;
@@ -29,6 +32,12 @@ public class Task1 {
     public void errorOnText() {
 //        TODO
 //        enter a text instead of a number, check that correct error is seen
+        String textToEnter = "text";
+        driver.findElement(By.id("numb")).sendKeys(textToEnter);
+        driver.findElement(By.className("w3-margin")).click();
+        Thread.sleep(5000);
+        System.out.println(driver.findElement(By.id("ch1_error")).getText());
+        assertEquals("enter number", driver.findElement(By.id("ch1_error")).getText());
     }
 
     @Test

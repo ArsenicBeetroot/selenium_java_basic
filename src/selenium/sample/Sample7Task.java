@@ -40,11 +40,25 @@ public class Sample7Task {
     public void selectCheckBox() throws Exception {
 //         TODO:
 //        check that none of the checkboxes are ticked
+        WebElement opt1 = driver.findElement(By.id("vfb-6-0"));
+        WebElement opt2 = driver.findElement(By.id("vfb-6-1"));
+        WebElement opt3 = driver.findElement(By.id("vfb-6-2"));
 //        tick  "Option 2"
+        assertFalse(opt1.isSelected());
+        assertFalse(opt2.isSelected());
+        assertFalse(opt3.isSelected());
 //        check that "Option 1" and "Option 3" are not ticked, but "Option 2" is ticked
+        opt2.click();
 //        tick  "Option 3"
+        assertFalse(opt1.isSelected());
+        assertTrue(opt2.isSelected());
+        assertFalse(opt3.isSelected());
 //        click result
+        opt3.click();
 //        check that text 'You selected value(s): Option 2, Option 3' is being displayed
+        driver.findElement(By.id("result_button-checkbox")).click();
+
+        assertEquals("you selected value(s): Option 2, Option 3", driver.findElement(By.id("result_checkbox")).getText());
     }
 
 
@@ -52,22 +66,53 @@ public class Sample7Task {
     public void selectRadioButton() throws Exception {
 //         TODO:
 //        check that none of the radio are selected
+        WebElement opt1 = driver.findElement(By.id("vfb-7-1"));
+        WebElement opt2 = driver.findElement(By.id("vfb-7-2"));
+        WebElement opt3 = driver.findElement(By.id("vfb-7-3"));
+
 //        select  "Option 3"
+        assertFalse(opt1.isSelected());
+        assertFalse(opt2.isSelected());
+        assertFalse(opt3.isSelected());
+
+        opt3.click();
 //        check that "Option 1" and "Option 2' are not select, but "Option 3" is selected
+        assertFalse(opt1.isSelected());
+        assertFalse(opt2.isSelected());
+        assertTrue(opt3.isSelected());
 //        select  "Option 1"
+        opt1.click();
 //        check that "Option 2" and "Option 3' are not select, but "Option 1" is selected
+        assertTrue(opt1.isSelected());
+        assertFalse(opt2.isSelected());
+        assertFalse(opt3.isSelected());
 //        click result
+        driver.findElement(By.id("result_button_ratio")).click();
 //        check that 'You selected option: Option 1' text is being displayed
+        assertEquals("you selected option: option 1", driver.findElement(By.id("result_ratio")).getText());
     }
 
     @Test
     public void selectOption() throws Exception {
+        WebElement dropdown = driver.findElement(By.id("vfb-12"));
+        Select dropdownSelect = new Select(dropdown);
+        List<WebElement> allSelections;
 //        select "Option 3" in Select
+        dropdownSelect.selectByVisibleText("Option 3");
 //        check that selected option is "Option 3"
+        allSelections = dropdownSelect.getAllSelectedOptions();
+        assertEquals(1, allSelections.size());
+        assertEquals("Option 3", allSelections.get(0).getText());
 //        select "Option 2" in Select
+        dropdownSelect.selectByVisibleText("Option 2");
 //        check that selected option is "Option 2"
+        allSelections = dropdownSelect.getAllSelectedOptions();
+        assertEquals(1, allSelections.size());
+        assertEquals("Option 2", allSelections.get(0).getText());
 //        click result
+        driver.findElement(By.id("result_button_select")).click();
 //        check that 'You selected option: Option 2' text is being displayed
+        assertEquals("You selected option: option 2", driver.findElement(By.id("result_select")).getText());
     }
 
     @Test

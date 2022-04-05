@@ -9,6 +9,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
 
+import static org.junit.Assert.assertEquals;
+
 public class Sample6Task {
     WebDriver driver;
 
@@ -34,21 +36,49 @@ public class Sample6Task {
     public void findElementByXPath() throws Exception {
 //         TODO:
 //        2 ways to find text: "Heading 2 text":
+        String heading2 = "Heading 2 text";
+        assertEquals(heading2, driver.findElement(By.xpath("//*[@id='heading_2']")).getText());
+        assertEquals(heading2, driver.findElement(By.xpath("//h2[contains(text()'" + heading2 + "')]")).getText());
+//
 //        1-2 ways to find text: "Test Text 1"
+        String testText1 = "testText1";
+        assertEquals(testText1, driver.findElement(By.xpath("//*div[@id='test1']/p[@class='test']")).getText());
 //        1-2 ways to find text: "Test Text 2"
+        String testText2 = "testText2";
+        assertEquals(testText2, driver.findElement(By.xpath("//*[@id='test2']/p[2]")).getText());
+        assertEquals(testText2, driver.findElement(By.xpath("//*[@class=\"twoTest\"]")).getText());
 //        1-2 ways to find text: "Test Text 3"
+        String testText3 = "testText3";
+        assertEquals(testText3, driver.findElement(By.xpath("//*[@id='test3']/p[1]")).getText());
 //        1-2 ways to find text: "Test Text 4"
+        String testText4 = "testText4";
+        assertEquals(testText4, driver.findElement(By.xpath("//p[@class='twoTest' and contains(text(), '4')]")).getText());
 //        1-2 ways to find text: "Test Text 5"
+        String testText5 = "testText5";
+        assertEquals(testText5, driver.findElement(By.xpath("//*[@class='Test']")).getText());
 //        1-2 ways to find text: "This is also a button"
+        String button2 = "This is also a button";
+        assertEquals(button2, driver.findElement(By.xpath("//input[@name='randomButton2']")).getText());
     }
 
     @Test
     public void findElementByCssName() throws Exception {
 //         TODO:
 //        1-2 ways to find text: "Heading 2 text"
+        String heading2 = "heading2";
+        assertEquals(heading2, driver.findElement(By.cssSelector("h2#heading_2")).getText());
 //        1-2 ways to find text: "Test Text 1"
+        String testText1 = "Test Text 1";
+        assertEquals(testText1, driver.findElement(By.cssSelector("#test1 > .test")).getText());
 //        1-2 ways to find text: "Test Text 2"
+        String testText2 = "Test Text 2";
+        assertEquals(testText2, driver.findElement(By.cssSelector(".twoTest")).getText());
 //        1-2 ways to find text: "Test Text 3"
+        String testText3 = "Test Text 3";
+        assertEquals(testText3, driver.findElement(By.cssSelector("#test3 > .test")).getText());
 //        1-2 ways to find text: "This is also a button"
+        String button2 = "This is also a button";
+        assertEquals(button2, driver.findElement(By.cssSelector("buttonId")).getAttribute( "value"));
+        assertEquals(button2, driver.findElement(By.cssSelector("[name=\"randomButton2\"]")).getAttribute( "value"));
     }
 }
